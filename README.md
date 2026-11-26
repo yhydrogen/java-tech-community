@@ -103,7 +103,6 @@ src/main/java/com/example/ssmstudy/  后端应用
 src/main/resources/                 默认配置与限流 Lua 脚本
 sql/community-schema.sql            六张业务表的初始化结构
 src/test/                          Spring Boot 上下文测试
-src/main/java/likou/                独立的算法练习
 ```
 
 ## 验证与后续计划

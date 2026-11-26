@@ -11,7 +11,6 @@ import com.example.ssmstudy.model.ArticleVersion;
 import com.example.ssmstudy.service.ArticleHotService;
 import com.example.ssmstudy.service.ArticleService;
 import jakarta.validation.Valid;
-import likou.ListNode;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
