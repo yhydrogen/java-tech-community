@@ -14,6 +14,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http)
             throws Exception{
         http.authorizeHttpRequests(auth -> {
+            // 同源演示页面可匿名访问；业务接口仍沿用原有认证和 CSRF 规则。
+            auth.requestMatchers(HttpMethod.GET, "/", "/index.html", "/assets/**", "/favicon.svg").permitAll();
             auth.requestMatchers(HttpMethod.GET, "/api/articles/*/versions").authenticated();
             auth.requestMatchers(HttpMethod.GET, "/api/articles/*/versions/*").authenticated();
             auth.requestMatchers(HttpMethod.GET, "/api/articles/*/like").authenticated();

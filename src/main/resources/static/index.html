@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123c36">
+  <meta name="description" content="Java 技术社区：分享文章、交流想法，记录每一次进步。">
+  <title>拾光 · Java 技术社区</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/app.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <aside class="sidebar">
+    <a class="brand" href="#feed"><span class="brand-mark">拾</span><span>拾光<span class="brand-sub">JAVA TECH COMMUNITY</span></span></a>
+    <p class="nav-caption">一起探索，持续生长</p>
+    <nav aria-label="主要导航">
+      <a class="nav-link" data-nav="feed" href="#feed"><span aria-hidden="true">▤</span> 发现文章</a>
+      <a class="nav-link" data-nav="hot" href="#hot"><span aria-hidden="true">♨</span> 热门排行</a>
+      <a class="nav-link" data-nav="favorites" href="#favorites"><span aria-hidden="true">☆</span> 我的收藏</a>
+    </nav>
+    <div class="sidebar-note"><span class="tiny-label">LEARN · BUILD · SHARE</span><p>让每一次实践，<br>都有迹可循。</p><span>一个生长中的 Java 技术社区</span></div>
+    <div class="sidebar-footer"><span class="mini-mark">{ }</span> 从一行代码开始</div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar">
+      <form id="search-form" class="search" role="search"><span aria-hidden="true">⌕</span><input id="search-input" aria-label="搜索文章标题" placeholder="搜索感兴趣的文章…" maxlength="200"><button type="submit">搜索</button></form>
+      <div class="top-actions"><div id="account"></div><button class="primary" id="write-button">＋ 写文章</button></div>
+    </header>
+    <main id="main" tabindex="-1"></main>
+    <footer class="page-footer"><span>拾光社区 · 在实践中积累，在分享中进步</span><details id="request-panel"><summary>请求记录</summary><p>最近的接口状态与耗时，不记录密码、令牌或响应正文。</p><ol id="request-log"></ol></details></footer>
+  </div>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+  <dialog id="auth-dialog" aria-labelledby="auth-title">
+    <div class="dialog-top"><span class="eyebrow">WELCOME TO SHIGUANG</span><button type="button" class="icon-button" data-close aria-label="关闭登录窗口">×</button></div>
+    <h2 id="auth-title">欢迎回来</h2><p id="auth-description" class="muted">登录后，分享你的想法与实践。</p>
+    <form id="auth-form">
+      <label>用户名<input name="username" required minlength="3" maxlength="64" pattern="[A-Za-z0-9_]{3,64}" autocomplete="username" placeholder="3–64 位字母、数字或下划线"></label>
+      <label>密码<input name="password" type="password" required autocomplete="current-password" placeholder="请输入密码"></label>
+      <p id="auth-error" class="form-error" role="alert" hidden></p>
+      <button id="auth-submit" class="primary full" type="submit">登录</button>
+    </form>
+    <button id="auth-switch" type="button" class="text-button full">还没有账号？注册一个</button>
+  </dialog>
+  <dialog id="editor-dialog" class="wide-dialog" aria-labelledby="editor-title">
+    <div class="dialog-top"><span class="eyebrow">SHARE YOUR IDEAS</span><button type="button" class="icon-button" data-close aria-label="关闭编辑窗口">×</button></div>
+    <h2 id="editor-title">写一篇新文章</h2><p id="editor-hint" class="muted">记录一次实践，让知识留下来。</p>
+    <form id="editor-form">
+      <label>文章标题<input name="title" required maxlength="200" placeholder="一个清晰的标题，是交流的开始"></label>
+      <label>正文<textarea name="content" required rows="12" placeholder="分享你的思考、代码与经验…（纯文本，支持换行）"></textarea></label>
+      <p id="editor-error" class="form-error" role="alert" hidden></p>
+      <div class="editor-bottom"><span class="muted">文章内容以纯文本展示</span><button class="primary" type="submit" id="editor-submit">发布文章</button></div>
+    </form>
+  </dialog>
+  <dialog id="version-dialog" class="wide-dialog" aria-labelledby="version-title">
+    <div class="dialog-top"><span class="eyebrow">ARTICLE HISTORY</span><button type="button" class="icon-button" data-close aria-label="关闭历史窗口">×</button></div>
+    <h2 id="version-title">文章历史</h2><div id="version-body"></div>
+  </dialog>
+</body>
+</html>

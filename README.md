@@ -1,6 +1,6 @@
 # Java Tech Community
 
-一个基于 Spring Boot 的技术社区项目。当前提供后端 API，支持用户认证、文章发布与编辑、评论、点赞、收藏、热门榜，以及文章历史版本的比较和恢复。后续可在同一仓库加入演示前端，通过这些 API 展示社区业务流程。
+一个基于 Spring Boot 的技术社区项目。提供后端 API 和“拾光社区”简易演示前端，支持用户认证、文章发布与编辑、评论、点赞、收藏、热门榜，以及文章历史版本的比较和恢复。前端使用原生 HTML、CSS 和 JavaScript，由同一个 Spring Boot 应用提供，无需安装 Node.js 或单独启动前端服务。
 
 项目参考 [技术派（paicoding）](https://github.com/itwanger/paicoding) 的社区业务场景，用于练习 Java 后端开发。
 
@@ -13,6 +13,7 @@
 | 历史版本 | 修改前保存标题和正文快照，支持查看历史、逐行对比和恢复。编辑和恢复检查当前版本，拒绝过期请求并返回 `409` |
 | 缓存与热门榜 | Redis 缓存文章详情，也对查不到的文章设置短时空值缓存。编辑和删除在事务提交后失效缓存；热门榜按点赞数定时写入 Redis ZSET |
 | 评论限流 | Redis Lua 脚本按用户统计固定窗口内的评论请求，窗口为 60 秒，超过 5 次返回 `429` |
+| 演示页面 | 响应式文章列表、搜索、热门榜、我的收藏和文章详情；登录注册、发文编辑、评论、点赞收藏及历史对比恢复。写操作自动携带 CSRF，编辑冲突保留输入 |
 
 技术栈为 Java（编译目标 17）、Spring Boot 4.1.2、Spring MVC、Spring Security、Spring Session、MyBatis 及 Maven。MySQL 保存业务数据，Redis 用于会话、缓存、榜单和限流。
 
@@ -57,7 +58,13 @@ java -jar target/ssm-study-0.0.1-SNAPSHOT.jar
 
 如果 Maven 由 IntelliJ IDEA 提供，可以从 Maven 工具窗口的 **Lifecycle** 执行 **package**。运行 JAR 时保持工作目录为仓库根目录，使 Spring Boot 能读到 `config/application.properties`。
 
-启动后可访问以下公开接口。新建的空库返回 `[]` 是正常结果。
+启动后打开 **[http://localhost:8080/](http://localhost:8080/)** 即可使用演示界面。先注册并登录，发布一篇文章，再演示评论、点赞、收藏、编辑与历史恢复。编辑和历史操作仅在作者登录时显示；两个浏览器标签页同时编辑同一文章，可以演示 `409` 冲突和草稿保留。热门榜约每分钟更新。
+
+页面正文为纯文本，支持换行。现有接口返回作者/评论用户 ID，因此页面按 ID 展示；收藏与取消收藏提供独立按钮，收藏结果可在“我的收藏”核对。页面不预置账号或模拟业务数据。底部“请求记录”可查看最近接口的状态和耗时，不保存密码、令牌或响应正文。
+
+在 IDEA 中运行 `SsmStudyApplication` 也可使用页面；工作目录保持仓库根目录。不要直接双击 `index.html`，它需要同源的 Java 接口。若使用此前的 JAR，请重新打包，旧包不含前端文件。
+
+也可访问以下公开接口。新建的空库返回 `[]` 是正常结果。
 
 ```powershell
 curl.exe "http://localhost:8080/api/articles?page=1&pageSize=10"
@@ -101,6 +108,7 @@ src/main/java/com/example/ssmstudy/  后端应用
   mapper/                           MyBatis SQL 与数据映射
   model/、dto/                       数据模型与请求/响应对象
 src/main/resources/                 默认配置与限流 Lua 脚本
+  static/                           演示首页、样式与交互脚本
 sql/community-schema.sql            六张业务表的初始化结构
 src/test/                          Spring Boot 上下文测试
 ```
